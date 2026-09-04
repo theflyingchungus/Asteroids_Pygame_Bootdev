@@ -15,7 +15,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-python-version: '3.11' # Matches a stable Python environment
+        python-version: '3.11' # Matches a stable Python environment
 
     - name: Install dependencies
       run: |
