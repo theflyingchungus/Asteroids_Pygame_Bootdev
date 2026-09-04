@@ -27,7 +27,7 @@ jobs:
 
     - name: Build Executable with PyInstaller
       run: |
-        pyinstaller --onefile --windowed main.py
+        pyinstaller --onefile --windowed --add-data "snare.mp3;." --add-data "laser.mp3;." main.py
       # Note: Replace "main.py" with the actual entry point script of your Asteroids game if it's named differently (e.g., game.py).
 
     - name: Upload Executable to GitHub Release
