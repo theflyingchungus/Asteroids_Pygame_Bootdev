@@ -1,0 +1,37 @@
+name: Build and Release Windows Executable
+
+on:
+  push:
+    branches: [ main ]
+  release:
+    types: [published]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11' # Matches a stable Python environment
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Build Executable with PyInstaller
+      run: |
+        pyinstaller --onefile --windowed main.py
+      # Note: Replace "main.py" with the actual entry point script of your Asteroids game if it's named differently (e.g., game.py).
+
+    - name: Upload Executable to GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: dist/main.exe
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
